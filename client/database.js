@@ -19,11 +19,12 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
-setTimeout(() => {
-    num = document.getElementById('num');
-}, 1000)
+// setTimeout(() => {
+    
+// }, 1000)
 
 let timer = setInterval(function () {
+    num = document.getElementById('num');
     if(past_num != num.innerHTML){
         database.ref("/" + num.innerHTML[6] + num.innerHTML[7]).once('value', function (snapshot) {
             var data = snapshot.val();
