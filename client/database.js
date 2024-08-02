@@ -2,6 +2,13 @@
 let past_num = "";
 let num = "";
 let msg = document.getElementById('msg');
+let message = new Typed(msg, {
+    startDelay: 0,
+    strings: [''],
+    typeSpeed: 5,
+    backSpeed: 0,
+    fadeOut: true,
+});
 
 const firebaseConfig = {
     apiKey: "AIzaSyBCM30dzmjIothg9SmLV32i9BROyvZbXqk",
@@ -23,17 +30,36 @@ var database = firebase.database();
 let timer = setInterval(function () {
     num = document.getElementById('num');
     if (past_num != num.innerHTML) {
-        database.ref("/" + num.innerHTML[6] + num.innerHTML[7]).once('value', function (snapshot) {
+        database.ref("/" + num.innerHTML[6]+num.innerHTML[7]).once('value', function (snapshot) {
             if (snapshot.val() != null) {
                 var data = snapshot.val();
                 console.log(data);
-                msg.innerHTML = data;
+                msg.innerHTML = "";
+                message.destroy();
+
+                // deal with firebase message
+                let new_data = '';
+                for(let i=0; i<data.length; i++){
+                    new_data += i+". <br>";
+                    new_data += data[i];
+                    new_data += "<br><br>"
+                }
+
+                message = new Typed(msg, {
+                    startDelay: 0,
+                    strings: [new_data],
+                    typeSpeed: 5,
+                    backSpeed: 0,
+                    fadeOut: true,
+                    onComplete: (self) => {
+                        self.destroy();
+                        msg.innerHTML = new_data;
+                    },
+                });
             }
         });
         past_num = num.innerHTML;
         console.log(past_num);
 
     }
-
-
 }, 1500);
