@@ -19,22 +19,21 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var database = firebase.database();
 
-// setTimeout(() => {
-    
-// }, 1000)
 
 let timer = setInterval(function () {
     num = document.getElementById('num');
-    if(past_num != num.innerHTML){
+    if (past_num != num.innerHTML) {
         database.ref("/" + num.innerHTML[6] + num.innerHTML[7]).once('value', function (snapshot) {
-            var data = snapshot.val();
-            console.log(data);
-            msg.innerHTML = data;
+            if (snapshot.val() != null) {
+                var data = snapshot.val();
+                console.log(data);
+                msg.innerHTML = data;
+            }
         });
         past_num = num.innerHTML;
         console.log(past_num);
-        
+
     }
 
-    
+
 }, 1500);

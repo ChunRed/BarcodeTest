@@ -46,7 +46,6 @@ html5QrcodeScanner.render(onScanSuccess, onScanFailure);
 
 setInterval(() => {
     if (document.getElementById('html5-qrcode-button-camera-stop').style.display != 'none'){
-        
     }
     else{
         flag = true;
