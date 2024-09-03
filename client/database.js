@@ -41,7 +41,7 @@ let timer = setInterval(function () {
                 let new_data = '';
                 for(let i=0; i<data.length; i++){
                     new_data += i+". <br>";
-                    new_data += data[i];
+                    new_data += data[ data.length - i - 1];
                     new_data += "<br><br>"
                 }
 
@@ -62,4 +62,4 @@ let timer = setInterval(function () {
         console.log(past_num);
 
     }
-}, 1500);
+}, 5000);
